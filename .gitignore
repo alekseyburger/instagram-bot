@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.session.json
+pyenv/
 
 # C extensions
 *.so
@@ -60,10 +62,12 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+*.db
 
 # Flask stuff:
 instance/
 .webassets-cache
+migrations/
 
 # Scrapy stuff:
 .scrapy
