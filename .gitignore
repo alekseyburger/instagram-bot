@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .session.json
-pyenv/
+pyenv*/
 
 # C extensions
 *.so

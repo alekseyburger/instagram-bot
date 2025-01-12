@@ -1,3 +1,5 @@
+
+#!/usr/bin/env python
 import sys, os
 import configparser
 from pathlib import Path
@@ -8,7 +10,8 @@ import sqlite3
 MAX_MEDIAS_READ=6
 InstaParamsFname="./.session.json"
 
-conn = sqlite3.connect('instagram.db')
+
+conn= sqlite3.connect('./instagram.db')
 c = conn.cursor()
 try:
     with conn:
@@ -248,18 +251,24 @@ def spy(user_name):
 
     # go over new channel
     for cname in subscribe_set:
-        channel = following_list[cname]
-        print(f"User {user_name} subscribes to {channel}")
-        spy_user_in_the_channel(user_name, user_id,channel)
-        # if channel.is_tag():
-        #     spy_user_in_tag_channel(user_name, user_id,channel)
-        # else:
-        #     spy_user_in_the_channel(user_name, user_id,channel)
+        try:
+            channel = following_list[cname]
+            print(f"User {user_name} subscribes to {channel}")
+            spy_user_in_the_channel(user_name, user_id,channel)
+            # if channel.is_tag():
+            #     spy_user_in_tag_channel(user_name, user_id,channel)
+            # else:
+            #     spy_user_in_the_channel(user_name, user_id,channel)
+        except:
+            print(f"An exception occurred while parsing a new channel, continue")
 
     for cname in continue_set:
-        channel = following_list[cname]
-        print(f"User {user_name} continue following on {channel}")
-        spy_user_in_the_channel(user_name, user_id, channel)
+        try:
+            channel = following_list[cname]
+            print(f"User {user_name} continue following on {channel}")
+            spy_user_in_the_channel(user_name, user_id, channel)
+        except:
+            print(f"An exception occurred while parsing a channel, continue")       
 
 users = []
 try:
@@ -269,5 +278,6 @@ try:
 except:
     print(f"An exception occurred in DB read : can't get users list")
     sys.exit(0)
+
 for user in users:
     spy(user)
